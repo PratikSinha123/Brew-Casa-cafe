@@ -3,10 +3,14 @@
 /**
  * Simple JSON-file store used by all route handlers.
  * In production you would swap this for a real database.
+ *
+ * Note: synchronous file I/O is intentional here for simplicity;
+ * for high-concurrency production use replace with a proper database.
  */
 
-const fs   = require("fs");
-const path = require("path");
+const fs     = require("fs");
+const path   = require("path");
+const crypto = require("crypto");
 
 const DATA_DIR = path.join(__dirname, "..", "data");
 
@@ -43,14 +47,15 @@ function write(name, records) {
  * Append one record to a collection.
  * @param {string} name
  * @param {object} record
- * @returns {object} the inserted record (with an `id` field added)
+ * @returns {object} the inserted record (with a UUID `id` field added)
  */
 function insert(name, record) {
   const records = read(name);
-  record.id = Date.now() + "-" + Math.random().toString(36).slice(2, 7);
+  record.id = crypto.randomUUID();
   records.push(record);
   write(name, records);
   return record;
 }
 
 module.exports = { read, write, insert };
+

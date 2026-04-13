@@ -169,7 +169,8 @@ document.getElementById("year").textContent = new Date().getFullYear();
     const visible = getVisibleCount();
     const maxShift = Math.max(0, cards.length - visible);
     const safeIndex = Math.min(index, maxShift);
-    const cardWidth = cards[0].offsetWidth + 24; // gap 1.5rem ≈ 24px
+    const cardGap    = parseFloat(getComputedStyle(track).gap) || 24;
+    const cardWidth  = cards[0].offsetWidth + cardGap; // read gap from CSS
     track.scrollTo({ left: safeIndex * cardWidth, behavior: "smooth" });
     $$(".dot", dotsEl).forEach((d, i) => d.classList.toggle("active", i === index));
   }

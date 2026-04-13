@@ -10,14 +10,21 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/__tests__/**/*.test.js"]
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ]
   },
-  "keywords": ["cafe", "website", "brew-casa"],
+  "keywords": [
+    "cafe",
+    "website",
+    "brew-casa"
+  ],
   "author": "Brew Casa",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.3",
+    "express-rate-limit": "^8.3.2",
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "morgan": "^1.10.0"

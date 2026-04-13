@@ -164,13 +164,15 @@ document.getElementById("year").textContent = new Date().getFullYear();
     dotsEl.appendChild(dot);
   });
 
+  const GAP_FALLBACK_PX = 24; // matches gap: 1.5rem in .testimonial-track CSS
+
   function goTo(index) {
     current = index;
-    const visible = getVisibleCount();
-    const maxShift = Math.max(0, cards.length - visible);
+    const visible   = getVisibleCount();
+    const maxShift  = Math.max(0, cards.length - visible);
     const safeIndex = Math.min(index, maxShift);
-    const cardGap    = parseFloat(getComputedStyle(track).gap) || 24;
-    const cardWidth  = cards[0].offsetWidth + cardGap; // read gap from CSS
+    const cardGap   = parseFloat(getComputedStyle(track).gap) || GAP_FALLBACK_PX;
+    const cardWidth = cards[0].offsetWidth + cardGap;
     track.scrollTo({ left: safeIndex * cardWidth, behavior: "smooth" });
     $$(".dot", dotsEl).forEach((d, i) => d.classList.toggle("active", i === index));
   }

@@ -44,7 +44,7 @@ router.post("/", reservationRules, (req, res) => {
     phone,
     date,
     time,
-    guests: Number(guests),
+    guests: Number(guests), // keep as Number for consistent JSON output
     message: message || "",
     status: "pending",
     createdAt: new Date().toISOString(),

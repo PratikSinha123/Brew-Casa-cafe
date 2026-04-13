@@ -34,13 +34,21 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/* ── Rate limiting (applied to all API routes) ──────────────────────────── */
+/* ── Rate limiting ──────────────────────────────────────────────────────── */
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: "Too many requests, please try again later." },
+});
+
+// Generous limit for page loads (static HTML)
+const pageLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 500,
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 /* ── Static files ───────────────────────────────────────────────────────── */
@@ -55,7 +63,7 @@ app.use("/api/menu",         apiLimiter, menuRouter);
 app.get("/api/health", (_req, res) => res.json({ status: "ok", cafe: "Brew Casa" }));
 
 /* ── SPA fallback: serve index.html for any unmatched GET route ─────────── */
-app.get("*", (_req, res) => {
+app.get("*", pageLimiter, (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 

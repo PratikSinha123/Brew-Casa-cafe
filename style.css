@@ -479,7 +479,46 @@ button {
 
 @media (max-width: 768px) {
     .slide-content.aesthetic-text {
-        bottom: 12%;
+        bottom: 10%;
+        width: 90%;
+        left: 5% !important;
+        right: auto !important;
+    }
+    /* Disable aggressive alternating on very narrow iPhone screens to prevent terrible word wrapping */
+    .slide:nth-child(odd) .slide-content.aesthetic-text,
+    .slide:nth-child(even) .slide-content.aesthetic-text {
+        text-align: center;
+        align-items: center;
+        left: 5%;
+        right: 5%;
+    }
+    
+    .slide-title {
+        font-size: 2.4rem !important;
+        line-height: 1.1;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .slide-subtitle {
+        font-size: 1.15rem !important;
+        margin-bottom: var(--space-md);
+    }
+    
+    .slide-desc {
+        font-size: 0.95rem !important;
+        line-height: 1.5;
+        margin-bottom: var(--space-xl);
+    }
+    
+    .slide-badge {
+        font-size: 0.65rem !important;
+        padding: 6px 16px !important;
+        margin-bottom: var(--space-sm) !important;
+    }
+    
+    .slide-cta {
+        font-size: 0.75rem !important;
+        padding: 12px 24px !important;
     }
 }
 

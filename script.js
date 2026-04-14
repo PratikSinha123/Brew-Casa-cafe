@@ -111,7 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
             context.fillStyle = "#050505";
             context.fillRect(0, 0, canvas.width, canvas.height);
             
-            const img = images[imageSeq.frame];
+            // GSAP interpolates smoothly, so we must round to get a whole number index
+            const frameIndex = Math.round(imageSeq.frame);
+            const img = images[frameIndex];
             if (!img || !img.complete) return;
             
             // "object-fit: cover" equivalent behavior

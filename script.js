@@ -73,234 +73,115 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Hero Slider ---
-    const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.getElementById('slider-prev');
-    const nextBtn = document.getElementById('slider-next');
-    const dots = document.querySelectorAll('.slider-dot');
-    const currentSlideEl = document.getElementById('current-slide');
-    const dragProgress = document.getElementById('drag-progress');
-    const dragHandle = document.getElementById('drag-handle');
-    const dragTrack = document.querySelector('.drag-track');
-    const heroSlider = document.getElementById('hero-slider');
+    // --- Hero Slider via Canvas Scrollytelling Add-on ---
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
 
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-    let autoplayInterval;
-    let isTransitioning = false;
+        const canvas = document.getElementById("hero-canvas");
+        const context = canvas.getContext("2d");
 
-    function goToSlide(index, direction = 'next') {
-        if (isTransitioning || index === currentIndex) return;
-        isTransitioning = true;
+        const frameCount = 240;
+        const currentFrame = index => (
+            `ezgif-301be2621961b6cf-jpg/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`
+        );
 
-        // Remove active from current slide
-        slides[currentIndex].classList.remove('active');
+        const images = [];
+        const imageSeq = {
+            frame: 0
+        };
 
-        // Update index
-        currentIndex = index;
+        // Preload frames
+        for (let i = 0; i < frameCount; i++) {
+            const img = new Image();
+            img.src = currentFrame(i);
+            images.push(img);
+        }
 
-        // Clamp index
-        if (currentIndex >= totalSlides) currentIndex = 0;
-        if (currentIndex < 0) currentIndex = totalSlides - 1;
+        if (images[0]) {
+            images[0].onload = render;
+        }
 
-        // Add active to new slide
-        slides[currentIndex].classList.add('active');
+        function render() {
+            if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
 
-        // Update dots
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
+            // Fill background matching frame background
+            context.fillStyle = "#050505";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const img = images[imageSeq.frame];
+            if (!img || !img.complete) return;
+            
+            // "object-fit: cover" equivalent behavior
+            const hRatio = canvas.width / img.width;
+            const vRatio = canvas.height / img.height;
+            const ratio  = Math.max(hRatio, vRatio);
+            const centerShift_x = (canvas.width - img.width * ratio) / 2;
+            const centerShift_y = (canvas.height - img.height * ratio) / 2;  
+            
+            context.drawImage(img, 0, 0, img.width, img.height,
+                              centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+        }
+
+        // Draw initially to avoid blank canvas waiting for scroll
+        setTimeout(render, 100);
+        window.addEventListener('resize', render);
+
+        // Sequence Animation synced to scroll
+        gsap.to(imageSeq, {
+            frame: frameCount - 1,
+            snap: "frame",
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero-section",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 0.5
+            },
+            onUpdate: render
         });
 
-        // Update counter
-        currentSlideEl.textContent = String(currentIndex + 1).padStart(2, '0');
+        // Set up the texts to fade in and out as we scroll
+        const slides = document.querySelectorAll('.slide');
+        const numSlides = slides.length;
+        
+        // Hide all initially
+        gsap.set(slides, { opacity: 0, visibility: 'hidden', y: 30 });
+        
+        // Ensure first slide is visible initially
+        gsap.set(slides[0], { opacity: 1, visibility: 'visible', y: 0 });
 
-        // Update drag bar position
-        updateDragBar();
-
-        setTimeout(() => {
-            isTransitioning = false;
-        }, 800);
-    }
-
-    function nextSlide() {
-        goToSlide(currentIndex + 1, 'next');
-    }
-
-    function prevSlide() {
-        goToSlide(currentIndex - 1, 'prev');
-    }
-
-    function updateDragBar() {
-        const progress = ((currentIndex + 1) / totalSlides) * 100;
-        dragProgress.style.width = progress + '%';
-        dragHandle.style.left = progress + '%';
-    }
-
-    // Slider button events
-    nextBtn.addEventListener('click', () => {
-        nextSlide();
-        resetAutoplay();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        prevSlide();
-        resetAutoplay();
-    });
-
-    // Dot click events
-    dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            const slideIndex = parseInt(dot.dataset.slide);
-            goToSlide(slideIndex);
-            resetAutoplay();
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".hero-section",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: true
+            }
         });
-    });
 
-    // Autoplay
-    function startAutoplay() {
-        autoplayInterval = setInterval(nextSlide, 2500);
-    }
-
-    function resetAutoplay() {
-        clearInterval(autoplayInterval);
-        startAutoplay();
-    }
-
-    startAutoplay();
-
-    // Pause on hover
-    heroSlider.addEventListener('mouseenter', () => {
-        clearInterval(autoplayInterval);
-    });
-
-    heroSlider.addEventListener('mouseleave', () => {
-        startAutoplay();
-    });
-
-    // --- Drag / Swipe on Slider ---
-    let isDragging = false;
-    let startX = 0;
-    let dragDelta = 0;
-
-    heroSlider.addEventListener('mousedown', (e) => {
-        // Don't start drag on buttons
-        if (e.target.closest('.slider-btn') || e.target.closest('.slider-dot') ||
-            e.target.closest('.slide-cta') || e.target.closest('.drag-handle')) return;
-
-        isDragging = true;
-        startX = e.clientX;
-        dragDelta = 0;
-        heroSlider.classList.add('dragging');
-        clearInterval(autoplayInterval);
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        dragDelta = e.clientX - startX;
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (!isDragging) return;
-        isDragging = false;
-        heroSlider.classList.remove('dragging');
-
-        if (Math.abs(dragDelta) > 60) {
-            if (dragDelta < 0) {
-                nextSlide();
+        // Loop through slides and create enter/leave animations
+        slides.forEach((slide, i) => {
+            // Give each slide an equal proportion of the scroll space
+            const slideDuration = 10; 
+            
+            if(i === 0) {
+                // First slide is already visible, just ease it out
+                tl.to(slide, { opacity: 0, y: -30, duration: slideDuration * 0.5 }, slideDuration * 0.5);
             } else {
-                prevSlide();
+                // Fade In
+                const startTime = i * slideDuration;
+                tl.to(slide, { opacity: 1, visibility: 'visible', y: 0, duration: slideDuration * 0.3 }, startTime - (slideDuration * 0.3))
+                
+                // Fade out (if not last)
+                if (i !== numSlides - 1) {
+                    tl.to(slide, { opacity: 0, y: -30, duration: slideDuration * 0.3 }, startTime + (slideDuration * 0.7));
+                }
             }
-        }
-
-        startAutoplay();
-    });
-
-    // Touch support
-    heroSlider.addEventListener('touchstart', (e) => {
-        if (e.target.closest('.slider-btn') || e.target.closest('.slider-dot') ||
-            e.target.closest('.slide-cta') || e.target.closest('.drag-handle')) return;
-
-        isDragging = true;
-        startX = e.touches[0].clientX;
-        dragDelta = 0;
-        clearInterval(autoplayInterval);
-    }, { passive: true });
-
-    heroSlider.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        dragDelta = e.touches[0].clientX - startX;
-    }, { passive: true });
-
-    heroSlider.addEventListener('touchend', () => {
-        if (!isDragging) return;
-        isDragging = false;
-
-        if (Math.abs(dragDelta) > 40) {
-            if (dragDelta < 0) {
-                nextSlide();
-            } else {
-                prevSlide();
-            }
-        }
-
-        startAutoplay();
-    });
-
-    // --- Drag Handle on Track ---
-    let isHandleDragging = false;
-
-    dragHandle.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        isHandleDragging = true;
-        clearInterval(autoplayInterval);
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isHandleDragging) return;
-
-        const trackRect = dragTrack.getBoundingClientRect();
-        let x = e.clientX - trackRect.left;
-        x = Math.max(0, Math.min(x, trackRect.width));
-
-        const percent = x / trackRect.width;
-        const slideIndex = Math.round(percent * (totalSlides - 1));
-
-        // Visual feedback
-        dragProgress.style.width = (percent * 100) + '%';
-        dragHandle.style.left = (percent * 100) + '%';
-
-        goToSlide(slideIndex);
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (isHandleDragging) {
-            isHandleDragging = false;
-            updateDragBar();
-            startAutoplay();
-        }
-    });
-
-    // Drag track click
-    dragTrack.addEventListener('click', (e) => {
-        const trackRect = dragTrack.getBoundingClientRect();
-        const x = e.clientX - trackRect.left;
-        const percent = x / trackRect.width;
-        const slideIndex = Math.round(percent * (totalSlides - 1));
-        goToSlide(slideIndex);
-        resetAutoplay();
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-            resetAutoplay();
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
-            resetAutoplay();
-        }
-    });
+        });
+    }
 
     // --- Menu Tab Switching ---
     const menuTabs = document.querySelectorAll('.menu-tab');

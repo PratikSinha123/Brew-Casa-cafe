@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu | Brew Casa — Brewing Happiness</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .menu-page-header {
+            padding: 180px 0 80px;
+            text-align: center;
+            background: var(--sage-700);
+            color: var(--white);
+        }
+        
+        .menu-page-content {
+            padding: 100px 0;
+            background: var(--cream-100);
+        }
+        
+        .menu-hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 20px;
+        }
+        
+        .menu-hero-subtitle {
+            font-family: var(--font-body);
+            font-style: italic;
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Premium Menu Styling Override for full-page */
+        .menu-section {
+            padding: 0;
+            background: transparent;
+        }
+        
+        .menu-categories {
+            margin-bottom: 60px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/brew-casa-logo.png" alt="Brew Casa Logo" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-name">Brew Casa</span>
+                    <span class="logo-tag">Brewing Happiness</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li>
+                <li><a href="index.html#bucket-list">Bucket List</a></li>
+                <li><a href="index.html#contact">Visit Us</a></li>
+            </ul>
+            <a href="https://www.instagram.com/brew.casa/" target="_blank" class="nav-insta">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.28-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="menu-page-header">
+        <div class="container">
+            <h1 class="menu-hero-title">Our Menu</h1>
+            <p class="menu-hero-subtitle">Taste the magic in every bite.</p>
+        </div>
+    </header>
+
+    <main class="menu-page-content">
+        <div class="container">
+            <!-- Menu Highlights Original Section Moved Here -->
+            <section class="menu-section" style="opacity: 1; visibility: visible;">
+                <div class="menu-categories">
+                    <button class="menu-tab active" data-category="coffee">Coffee & Brews</button>
+                    <button class="menu-tab" data-category="food">Food & Bites</button>
+                    <button class="menu-tab" data-category="desserts">Desserts</button>
+                    <button class="menu-tab" data-category="specials">Specials</button>
+                </div>
+
+                <div class="menu-grid" id="menu-grid">
+                    <!-- Coffee Category -->
+                    <div class="menu-card" data-category="coffee">
+                        <div class="menu-card-icon">☕</div>
+                        <h3 class="menu-card-name">Hazelnut Mocha</h3>
+                        <p class="menu-card-desc">Rich espresso blended with hazelnut syrup and steamed chocolate milk</p>
+                        <span class="menu-card-tag">Bestseller</span>
+                    </div>
+                    <div class="menu-card" data-category="coffee">
+                        <div class="menu-card-icon">🍵</div>
+                        <h3 class="menu-card-name">Classic Cappuccino</h3>
+                        <p class="menu-card-desc">Double shot espresso topped with velvety microfoam and cocoa dust</p>
+                        <span class="menu-card-tag">Classic</span>
+                    </div>
+                    <div class="menu-card" data-category="coffee">
+                        <div class="menu-card-icon">🥤</div>
+                        <h3 class="menu-card-name">Iced Caramel Latte</h3>
+                        <p class="menu-card-desc">Chilled espresso with house-made caramel and creamy oat milk</p>
+                        <span class="menu-card-tag">Summer Fave</span>
+                    </div>
+                    <div class="menu-card" data-category="coffee">
+                        <div class="menu-card-icon">🫖</div>
+                        <h3 class="menu-card-name">Vanilla Chai Latte</h3>
+                        <p class="menu-card-desc">Spiced chai concentrate with vanilla and frothy steamed milk</p>
+                        <span class="menu-card-tag">Comfort</span>
+                    </div>
+
+                    <!-- Food Category -->
+                    <div class="menu-card hidden" data-category="food">
+                        <div class="menu-card-icon">🥐</div>
+                        <h3 class="menu-card-name">Butter Croissant</h3>
+                        <p class="menu-card-desc">Flaky, golden, buttery layers of French-style pastry baked fresh</p>
+                        <span class="menu-card-tag">Fresh Daily</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="food">
+                        <div class="menu-card-icon">🥪</div>
+                        <h3 class="menu-card-name">Grilled Panini</h3>
+                        <p class="menu-card-desc">Artisan bread with mozzarella, sun-dried tomatoes, and fresh basil</p>
+                        <span class="menu-card-tag">Hearty</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="food">
+                        <div class="menu-card-icon">🥗</div>
+                        <h3 class="menu-card-name">Garden Bowl</h3>
+                        <p class="menu-card-desc">Seasonal greens, avocado, cherry tomatoes, with lemon herb dressing</p>
+                        <span class="menu-card-tag">Healthy</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="food">
+                        <div class="menu-card-icon">🍳</div>
+                        <h3 class="menu-card-name">All-Day Brunch</h3>
+                        <p class="menu-card-desc">Eggs your way, sourdough toast, sautéed mushrooms, and hash browns</p>
+                        <span class="menu-card-tag">Popular</span>
+                    </div>
+
+                    <!-- Desserts Category -->
+                    <div class="menu-card hidden" data-category="desserts">
+                        <div class="menu-card-icon">🍰</div>
+                        <h3 class="menu-card-name">Basque Cheesecake</h3>
+                        <p class="menu-card-desc">Caramelized, creamy, and impossibly smooth — our signature dessert</p>
+                        <span class="menu-card-tag">Signature</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="desserts">
+                        <div class="menu-card-icon">🧁</div>
+                        <h3 class="menu-card-name">Red Velvet Cupcake</h3>
+                        <p class="menu-card-desc">Moist red velvet sponge topped with cream cheese frosting</p>
+                        <span class="menu-card-tag">Sweet</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="desserts">
+                        <div class="menu-card-icon">🍫</div>
+                        <h3 class="menu-card-name">Chocolate Brownie</h3>
+                        <p class="menu-card-desc">Dense, fudgy brownie with dark chocolate ganache and sea salt</p>
+                        <span class="menu-card-tag">Indulgent</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="desserts">
+                        <div class="menu-card-icon">🍮</div>
+                        <h3 class="menu-card-name">Crème Brûlée</h3>
+                        <p class="menu-card-desc">Classic vanilla custard with a perfectly torched caramel crust</p>
+                        <span class="menu-card-tag">French</span>
+                    </div>
+
+                    <!-- Specials Category -->
+                    <div class="menu-card hidden" data-category="specials">
+                        <div class="menu-card-icon">🌟</div>
+                        <h3 class="menu-card-name">Winter Spiced Mocha</h3>
+                        <p class="menu-card-desc">Espresso, dark chocolate, cinnamon, nutmeg, and star anise warmth</p>
+                        <span class="menu-card-tag">Seasonal</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="specials">
+                        <div class="menu-card-icon">🍓</div>
+                        <h3 class="menu-card-name">Berry Bliss Smoothie</h3>
+                        <p class="menu-card-desc">Mixed berries, Greek yogurt, honey, and a splash of oat milk</p>
+                        <span class="menu-card-tag">Refreshing</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="specials">
+                        <div class="menu-card-icon">🥞</div>
+                        <h3 class="menu-card-name">Fluffy Pancake Stack</h3>
+                        <p class="menu-card-desc">Three thick pancakes with maple syrup, berries, and whipped cream</p>
+                        <span class="menu-card-tag">Weekend</span>
+                    </div>
+                    <div class="menu-card hidden" data-category="specials">
+                        <div class="menu-card-icon">🫐</div>
+                        <h3 class="menu-card-name">Lavender Latte</h3>
+                        <p class="menu-card-desc">Floral lavender syrup with espresso and steamed milk, dreamy and fragrant</p>
+                        <span class="menu-card-tag">Unique</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-text">
+                        <span class="logo-name">Brew Casa</span>
+                        <span class="logo-tag">Brewing Happiness</span>
+                    </div>
+                    <p class="footer-desc">A vintage-inspired corner for those who find joy in a carefully crafted cup of coffee and the simple pleasures of life.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Navigation</h4>
+                    <ul>
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="index.html#gallery">Gallery</a></li>
+                        <li><a href="index.html#contact">Visit Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4 class="footer-title">Follow Us</h4>
+                    <p>Join our community on Instagram for daily doses of happiness.</p>
+                    <a href="https://www.instagram.com/brew.casa/" target="_blank" class="footer-insta">@brew.casa</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brew Casa. Crafted with Love.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Tab switching logic for menu page specifically
+        document.querySelectorAll('.menu-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.dataset.category;
+                document.querySelectorAll('.menu-card').forEach(card => {
+                    if (card.dataset.category === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

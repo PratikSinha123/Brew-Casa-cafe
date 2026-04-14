@@ -669,6 +669,32 @@ button {
     background: var(--cream-50);
 }
 
+/* Premium Dark Cafe Background for About */
+.about-section.premium-dark {
+    position: relative;
+    background: url('assets/images/hero-interior.png') center/cover no-repeat fixed;
+    z-index: 1;
+}
+
+.about-section.premium-dark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(30, 45, 35, 0.88); /* Deep elegant sage wash */
+    z-index: -1;
+}
+
+.premium-dark .section-label { color: var(--sage-200); }
+.premium-dark .section-title { color: var(--white); text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+.premium-dark .section-divider::before, 
+.premium-dark .section-divider::after { background-color: var(--sage-400); }
+.premium-dark .about-text { color: var(--cream-100); }
+.premium-dark .about-lead { color: var(--sage-200); border-left-color: var(--sage-400); }
+.premium-dark .signature-text { color: var(--sage-100); }
+.premium-dark .stat-number { color: var(--sage-200); text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.premium-dark .stat-label { color: var(--cream-200); }
+.premium-dark .about-image-wrapper { box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

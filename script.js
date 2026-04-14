@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 canvas.height = window.innerHeight;
             }
 
-            // Fill background matching frame background
-            context.fillStyle = "#050505";
+            // Fill background matching theme
+            context.fillStyle = "#1e331e";
             context.fillRect(0, 0, canvas.width, canvas.height);
             
             // GSAP interpolates smoothly, so we must round to get a whole number index

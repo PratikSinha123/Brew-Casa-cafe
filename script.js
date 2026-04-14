@@ -102,9 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function render() {
-            if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+            const dpr = window.devicePixelRatio || 1;
+            // Adjust canvas resolution for high-DPI (Retina/iPhone) screens
+            if (canvas.width !== window.innerWidth * dpr || canvas.height !== window.innerHeight * dpr) {
+                canvas.width = window.innerWidth * dpr;
+                canvas.height = window.innerHeight * dpr;
+                // Keep the visual size bounded to the viewport
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
             }
 
             const frameIndex = Math.round(imageSeq.frame);

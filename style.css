@@ -452,22 +452,39 @@ button {
 .slide-content.aesthetic-text {
     position: absolute;
     bottom: 20%;
-    left: 50%;
-    transform: translate(-50%, 30px);
-    max-width: 800px;
-    width: 90%;
-    text-align: center;
+    max-width: 500px;
+    width: 85%;
     z-index: 10;
     opacity: 0;
     transition: all 0.8s ease 0.3s;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-.slide.active .slide-content.aesthetic-text {
-    transform: translate(-50%, 0);
+/* Side-by-side alternating layout */
+.slide:nth-child(odd) .slide-content.aesthetic-text {
+    left: 8%;
+    text-align: left;
+    align-items: flex-start;
+    transform: translateX(-30px);
+}
+.slide:nth-child(even) .slide-content.aesthetic-text {
+    right: 8%;
+    text-align: right;
+    align-items: flex-end;
+    transform: translateX(30px);
+}
+
+.slide.active:nth-child(odd) .slide-content.aesthetic-text,
+.slide.active:nth-child(even) .slide-content.aesthetic-text {
+    transform: translateX(0);
     opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .slide-content.aesthetic-text {
+        bottom: 12%;
+    }
 }
 
 .slide-badge {
@@ -477,45 +494,45 @@ button {
     font-weight: 600;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: #ffd0a8;       /* Warm peach/gold accent */
-    background: rgba(255, 255, 255, 0.05);
+    color: #e2bda6;       /* Warmer, softer peach accent */
+    background: rgba(226, 189, 166, 0.08);
     backdrop-filter: blur(12px);
     padding: var(--space-sm) var(--space-xl);
     border-radius: var(--radius-full);
-    border: 1px solid rgba(255, 208, 168, 0.3);
+    border: 1px solid rgba(226, 189, 166, 0.3);
     margin-bottom: var(--space-xl);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(50, 30, 20, 0.2);
 }
 
 .slide-title {
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    font-size: clamp(3rem, 7vw, 6rem);
     font-weight: 500;
-    color: #ffffff;
+    color: #fcf6ef; /* Buttery cashmere off-white instead of harsh pure white */
     line-height: 1.05;
     margin-bottom: var(--space-md);
-    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(0,0,0,0.3);
+    text-shadow: 0 8px 30px rgba(60, 35, 20, 0.5), 0 2px 10px rgba(60, 35, 20, 0.3);
 }
 
 .slide-subtitle {
     font-family: var(--font-body);
-    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     font-style: italic;
-    color: #ffead6;       /* Soft cream complement */
+    color: #e6d3c0;       /* Soft oat cream complement */
     margin-bottom: var(--space-xl);
     letter-spacing: 1px;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 2px 20px rgba(60, 35, 20, 0.4);
 }
 
 .slide-desc {
     font-family: var(--font-ui);
     font-size: 1.05rem;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(252, 246, 239, 0.8);
     line-height: 1.8;
     margin-bottom: var(--space-3xl);
-    max-width: 540px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    text-shadow: 0 2px 10px rgba(60, 35, 20, 0.4);
 }
 
 .slide-cta {
@@ -527,21 +544,21 @@ button {
     font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #ffffff;
-    background: rgba(213, 159, 132, 0.15); /* warm aesthetic tint */
+    color: #fcf6ef;
+    background: rgba(189, 137, 110, 0.15); /* Soft beige tint */
     backdrop-filter: blur(15px);
     padding: var(--space-md) var(--space-3xl);
     border-radius: var(--radius-full);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(252, 246, 239, 0.2);
     transition: all 0.4s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(60, 35, 20, 0.15);
 }
 
 .slide-cta:hover {
-    background: rgba(213, 159, 132, 0.4);
+    background: rgba(189, 137, 110, 0.4);
     transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(213, 159, 132, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 40px rgba(189, 137, 110, 0.3);
+    border-color: rgba(252, 246, 239, 0.4);
 }
 
 /* Slider Controls Removed */

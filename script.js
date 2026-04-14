@@ -171,11 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.slide');
         const numSlides = slides.length;
         
-        // Hide all initially
-        gsap.set(slides, { opacity: 0, visibility: 'hidden', y: 30 });
+        // Hide all initially — we will slide them in horizontally
+        gsap.set(slides, { opacity: 0, visibility: 'hidden' });
         
         // Ensure first slide is visible initially
-        gsap.set(slides[0], { opacity: 1, visibility: 'visible', y: 0 });
+        gsap.set(slides[0], { opacity: 1, visibility: 'visible', x: 0 });
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -188,18 +188,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Loop through slides and create enter/leave animations
         slides.forEach((slide, i) => {
-            // Give each slide an equal proportion of the scroll space
             const slideDuration = 10; 
+            const isEven = (i % 2 === 0);
+            const startX = isEven ? -40 : 40; // Even slides start from Left, Odd slides start from Right
             
             if(i === 0) {
-                // First slide is already visible, just ease it out
-                tl.to(slide, { opacity: 0, y: -30, duration: slideDuration * 0.5 }, slideDuration * 0.5);
+                tl.to(slide, { opacity: 0, x: -40, duration: slideDuration * 0.5 }, slideDuration * 0.5);
             } else {
-                // Fade In
+                // Set initial hidden position off to the side
+                gsap.set(slide, { x: startX });
+
                 const startTime = i * slideDuration;
-                tl.to(slide, { opacity: 1, visibility: 'visible', y: 0, duration: slideDuration * 0.3 }, startTime - (slideDuration * 0.3))
+                // Slide in beautifully to x:0
+                tl.to(slide, { opacity: 1, visibility: 'visible', x: 0, duration: slideDuration * 0.3 }, startTime - (slideDuration * 0.3))
                 
-                // Fade out (if not last)
+                // Fade out and float up
                 if (i !== numSlides - 1) {
                     tl.to(slide, { opacity: 0, y: -30, duration: slideDuration * 0.3 }, startTime + (slideDuration * 0.7));
                 }

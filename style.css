@@ -461,8 +461,6 @@ button {
     max-width: 500px;
     width: 85%;
     z-index: 10;
-    opacity: 0;
-    transition: all 0.8s ease 0.3s;
     display: flex;
     flex-direction: column;
 }
@@ -472,19 +470,11 @@ button {
     left: 8%;
     text-align: left;
     align-items: flex-start;
-    transform: translateX(-30px);
 }
 .slide:nth-child(even) .slide-content.aesthetic-text {
     right: 8%;
     text-align: right;
     align-items: flex-end;
-    transform: translateX(30px);
-}
-
-.slide.active:nth-child(odd) .slide-content.aesthetic-text,
-.slide.active:nth-child(even) .slide-content.aesthetic-text {
-    transform: translateX(0);
-    opacity: 1;
 }
 
 @media (max-width: 768px) {

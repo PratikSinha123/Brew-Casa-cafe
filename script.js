@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
             images[0].onload = render;
         }
 
+        let cachedBgColor = null;
+
         function render() {
             const dpr = window.devicePixelRatio || 1;
             // Adjust canvas resolution for high-DPI (Retina/iPhone) screens
@@ -110,26 +112,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Keep the visual size bounded to the viewport
                 canvas.style.width = window.innerWidth + 'px';
                 canvas.style.height = window.innerHeight + 'px';
+                
+                // Force top-tier smoothing only upon resize to save GPU cycles
+                context.imageSmoothingEnabled = true;
+                context.imageSmoothingQuality = 'high';
             }
-
-            // Force top-tier smoothing quality for every single frame render
-            context.imageSmoothingEnabled = true;
-            context.imageSmoothingQuality = 'high';
 
             const frameIndex = Math.round(imageSeq.frame);
             const img = images[frameIndex];
             if (!img || !img.complete) return;
 
-            // Dynamically sample the top studio color to create a seamless infinite background extension
-            // This guarantees no ugly black bars ever appear when we scale out on iPhones to prevent cropping.
-            try {
-                // Draw a tiny segment of the top edge to average the studio background color
-                context.drawImage(img, parseInt(img.width/2), 5, 10, 10, 0, 0, 1, 1);
-                const p = context.getImageData(0, 0, 1, 1).data;
-                context.fillStyle = `rgb(${p[0]}, ${p[1]}, ${p[2]})`;
-            } catch(e) {
-                context.fillStyle = "#1e331e"; // Safe fallback
+            // Cache the background sampling to avoid 60fps GPU pipeline stalls
+            if (!cachedBgColor) {
+                try {
+                    context.drawImage(img, parseInt(img.width/2), 5, 10, 10, 0, 0, 1, 1);
+                    const p = context.getImageData(0, 0, 1, 1).data;
+                    cachedBgColor = `rgb(${p[0]}, ${p[1]}, ${p[2]})`;
+                } catch(e) {
+                    cachedBgColor = "#e6d3c0"; // Safe fallback
+                }
             }
+            context.fillStyle = cachedBgColor;
             context.fillRect(0, 0, canvas.width, canvas.height);
             
             // "object-fit: cover" equivalent behavior
@@ -182,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 trigger: ".hero-section",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: true
+                scrub: 0.8 // Add a slight delay interpolate for buttery smooth animation
             }
         });
 

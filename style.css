@@ -419,6 +419,12 @@ button {
     height: 100%;
     object-fit: cover;
     z-index: 1;
+    /* High-end 4K Sharpening & Color Grade Processing */
+    filter: contrast(1.08) saturate(1.1) brightness(1.04);
+    image-rendering: -webkit-optimize-contrast; 
+    image-rendering: crisp-edges;
+    image-rendering: high-quality;
+    will-change: transform;
 }
 
 .slider-track {
@@ -931,6 +937,8 @@ button {
     flex-shrink: 0;
     background: var(--sage-100);
 }
+
+
 
 .gallery-item img {
     width: 100%;

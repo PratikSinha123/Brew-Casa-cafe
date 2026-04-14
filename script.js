@@ -112,6 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 canvas.style.height = window.innerHeight + 'px';
             }
 
+            // Force top-tier smoothing quality for every single frame render
+            context.imageSmoothingEnabled = true;
+            context.imageSmoothingQuality = 'high';
+
             const frameIndex = Math.round(imageSeq.frame);
             const img = images[frameIndex];
             if (!img || !img.complete) return;

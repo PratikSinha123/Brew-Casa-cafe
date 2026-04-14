@@ -444,8 +444,8 @@ button {
 .slide-overlay {
     position: absolute;
     inset: 0;
-    /* Soft warm vignette to let the beautiful cookies video shine through */
-    background: radial-gradient(circle at center, rgba(30, 20, 10, 0.1) 0%, rgba(10, 5, 0, 0.5) 100%);
+    /* Very subtle warm transparent mask so the dark text pops comfortably */
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, rgba(230, 210, 190, 0.4) 100%);
     z-index: 5;
 }
 
@@ -491,48 +491,48 @@ button {
     display: inline-block;
     font-family: var(--font-ui);
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: #e2bda6;       /* Warmer, softer peach accent */
-    background: rgba(226, 189, 166, 0.08);
+    color: #4a3022;       /* Deep warm roasted brown */
+    background: rgba(74, 48, 34, 0.08); /* Transparent dark backing */
     backdrop-filter: blur(12px);
     padding: var(--space-sm) var(--space-xl);
     border-radius: var(--radius-full);
-    border: 1px solid rgba(226, 189, 166, 0.3);
+    border: 1px solid rgba(74, 48, 34, 0.25);
     margin-bottom: var(--space-xl);
-    box-shadow: 0 4px 20px rgba(50, 30, 20, 0.2);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
 }
 
 .slide-title {
     font-family: var(--font-display);
     font-size: clamp(3rem, 7vw, 6rem);
-    font-weight: 500;
-    color: #fcf6ef; /* Buttery cashmere off-white instead of harsh pure white */
+    font-weight: 600;
+    color: #1a0f0a; /* True elegant espresso black */
     line-height: 1.05;
     margin-bottom: var(--space-md);
-    text-shadow: 0 8px 30px rgba(60, 35, 20, 0.5), 0 2px 10px rgba(60, 35, 20, 0.3);
+    text-shadow: 0 4px 30px rgba(255, 255, 255, 0.6), 0 2px 10px rgba(255, 255, 255, 0.8); /* White soft glow to separate */
 }
 
 .slide-subtitle {
     font-family: var(--font-body);
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     font-style: italic;
-    color: #e6d3c0;       /* Soft oat cream complement */
+    color: #3b2316;       /* Soft dark mocha */
     margin-bottom: var(--space-xl);
     letter-spacing: 1px;
-    text-shadow: 0 2px 20px rgba(60, 35, 20, 0.4);
+    text-shadow: 0 2px 15px rgba(255, 255, 255, 0.5);
 }
 
 .slide-desc {
     font-family: var(--font-ui);
     font-size: 1.05rem;
-    font-weight: 300;
-    color: rgba(252, 246, 239, 0.8);
+    font-weight: 400;
+    color: rgba(30, 18, 10, 0.85); /* Deep rich brown opacity */
     line-height: 1.8;
     margin-bottom: var(--space-3xl);
     max-width: 500px;
-    text-shadow: 0 2px 10px rgba(60, 35, 20, 0.4);
+    text-shadow: 0 2px 15px rgba(255, 255, 255, 0.6);
 }
 
 .slide-cta {
@@ -541,24 +541,25 @@ button {
     gap: var(--space-sm);
     font-family: var(--font-ui);
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #fcf6ef;
-    background: rgba(189, 137, 110, 0.15); /* Soft beige tint */
+    color: #1a0f0a;
+    background: rgba(74, 48, 34, 0.1); /* Elegant dark glass border */
     backdrop-filter: blur(15px);
     padding: var(--space-md) var(--space-3xl);
     border-radius: var(--radius-full);
-    border: 1px solid rgba(252, 246, 239, 0.2);
+    border: 1px solid rgba(74, 48, 34, 0.35);
     transition: all 0.4s ease;
-    box-shadow: 0 4px 15px rgba(60, 35, 20, 0.15);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .slide-cta:hover {
-    background: rgba(189, 137, 110, 0.4);
+    background: rgba(44, 26, 20, 0.9);
+    color: #ffffff; /* Revert text to white on deep brown hover */
     transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(189, 137, 110, 0.3);
-    border-color: rgba(252, 246, 239, 0.4);
+    box-shadow: 0 10px 40px rgba(44, 26, 20, 0.3);
+    border-color: rgba(44, 26, 20, 1);
 }
 
 /* Slider Controls Removed */

@@ -444,23 +444,29 @@ button {
 .slide-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    /* Soft warm vignette to let the beautiful cookies video shine through */
+    background: radial-gradient(circle at center, rgba(30, 20, 10, 0.1) 0%, rgba(10, 5, 0, 0.5) 100%);
     z-index: 5;
 }
 
-.slide-content {
+.slide-content.aesthetic-text {
     position: absolute;
-    bottom: 15%;
-    left: 8%;
-    max-width: 600px;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, 30px);
+    max-width: 800px;
+    width: 90%;
+    text-align: center;
     z-index: 10;
-    transform: translateY(30px);
     opacity: 0;
     transition: all 0.8s ease 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.slide.active .slide-content {
-    transform: translateY(0);
+.slide.active .slide-content.aesthetic-text {
+    transform: translate(-50%, 0);
     opacity: 1;
 }
 
@@ -468,45 +474,48 @@ button {
     display: inline-block;
     font-family: var(--font-ui);
     font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 3px;
+    font-weight: 600;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--sage-200);
-    background: var(--white-10);
-    backdrop-filter: blur(10px);
-    padding: var(--space-xs) var(--space-lg);
+    color: #ffd0a8;       /* Warm peach/gold accent */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    padding: var(--space-sm) var(--space-xl);
     border-radius: var(--radius-full);
-    border: 1px solid var(--white-20);
-    margin-bottom: var(--space-lg);
+    border: 1px solid rgba(255, 208, 168, 0.3);
+    margin-bottom: var(--space-xl);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .slide-title {
     font-family: var(--font-display);
-    font-size: clamp(2.8rem, 6vw, 5rem);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.1;
-    margin-bottom: var(--space-sm);
-    text-shadow: 0 2px 40px rgba(0, 0, 0, 0.2);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.05;
+    margin-bottom: var(--space-md);
+    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(0,0,0,0.3);
 }
 
 .slide-subtitle {
     font-family: var(--font-body);
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
     font-style: italic;
-    color: var(--cream-300);
-    margin-bottom: var(--space-lg);
+    color: #ffead6;       /* Soft cream complement */
+    margin-bottom: var(--space-xl);
     letter-spacing: 1px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 .slide-desc {
     font-family: var(--font-ui);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 300;
-    color: var(--white-70);
-    line-height: 1.7;
-    margin-bottom: var(--space-2xl);
-    max-width: 460px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.8;
+    margin-bottom: var(--space-3xl);
+    max-width: 540px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .slide-cta {
@@ -515,22 +524,24 @@ button {
     gap: var(--space-sm);
     font-family: var(--font-ui);
     font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 2px;
+    font-weight: 600;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--white);
-    background: rgba(90, 138, 99, 0.6);
-    backdrop-filter: blur(10px);
-    padding: var(--space-md) var(--space-2xl);
+    color: #ffffff;
+    background: rgba(213, 159, 132, 0.15); /* warm aesthetic tint */
+    backdrop-filter: blur(15px);
+    padding: var(--space-md) var(--space-3xl);
     border-radius: var(--radius-full);
-    border: 1px solid var(--white-20);
-    transition: all var(--transition-normal);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .slide-cta:hover {
-    background: var(--sage-500);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(90, 138, 99, 0.3);
+    background: rgba(213, 159, 132, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(213, 159, 132, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Slider Controls Removed */

@@ -107,19 +107,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 canvas.height = window.innerHeight;
             }
 
-            // Fill background matching theme
-            context.fillStyle = "#1e331e";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // GSAP interpolates smoothly, so we must round to get a whole number index
             const frameIndex = Math.round(imageSeq.frame);
             const img = images[frameIndex];
             if (!img || !img.complete) return;
+
+            // Dynamically sample the top studio color to create a seamless infinite background extension
+            // This guarantees no ugly black bars ever appear when we scale out on iPhones to prevent cropping.
+            try {
+                // Draw a tiny segment of the top edge to average the studio background color
+                context.drawImage(img, parseInt(img.width/2), 5, 10, 10, 0, 0, 1, 1);
+                const p = context.getImageData(0, 0, 1, 1).data;
+                context.fillStyle = `rgb(${p[0]}, ${p[1]}, ${p[2]})`;
+            } catch(e) {
+                context.fillStyle = "#1e331e"; // Safe fallback
+            }
+            context.fillRect(0, 0, canvas.width, canvas.height);
             
             // "object-fit: cover" equivalent behavior
             const hRatio = canvas.width / img.width;
             const vRatio = canvas.height / img.height;
-            const ratio  = Math.max(hRatio, vRatio);
+            const isMobile = window.innerWidth < 768;
+            
+            // Fix iPhone cropping issue: 
+            // - On mobile (tall screen), if we use "cover", the box gets chopped horizontally. Use "contain" to preserve the whole box.
+            // - On desktop (wide screen), "cover" naturally fits 16:9 perfectly without chopping subjects.
+            const ratio = isMobile ? Math.min(hRatio, vRatio) * 1.15 : Math.max(hRatio, vRatio);
+            
             const centerShift_x = (canvas.width - img.width * ratio) / 2;
             const centerShift_y = (canvas.height - img.height * ratio) / 2;  
             

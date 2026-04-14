@@ -916,7 +916,7 @@ button {
    ============================================ */
 .gallery-section {
     padding: var(--space-5xl) 0;
-    background: var(--cream-50);
+    background: var(--sage-50);
 }
 
 .gallery-marquee-container {
@@ -1101,7 +1101,7 @@ button {
    ============================================ */
 .contact-section {
     padding: var(--space-5xl) 0;
-    background: var(--cream-50);
+    background: var(--sage-50);
 }
 
 .contact-grid {
